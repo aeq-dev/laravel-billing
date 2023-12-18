@@ -11,7 +11,7 @@ This is where your description should go. Take a look at [contributing.md](contr
 
 Via Composer
 
-``` bash
+```bash
 $ composer require bkfdev/laravel-billing
 ```
 
@@ -23,7 +23,7 @@ Please see the [changelog](changelog.md) for more information on what has change
 
 ## Testing
 
-``` bash
+```bash
 $ composer test
 ```
 
@@ -48,10 +48,9 @@ MIT. Please see the [license file](license.md) for more information.
 [ico-downloads]: https://img.shields.io/packagist/dt/bkfdev/laravel-billing.svg?style=flat-square
 [ico-travis]: https://img.shields.io/travis/bkfdev/laravel-billing/master.svg?style=flat-square
 [ico-styleci]: https://styleci.io/repos/12345678/shield
-
 [link-packagist]: https://packagist.org/packages/bkfdev/laravel-billing
 [link-downloads]: https://packagist.org/packages/bkfdev/laravel-billing
 [link-travis]: https://travis-ci.org/bkfdev/laravel-billing
 [link-styleci]: https://styleci.io/repos/12345678
-[link-author]: https://github.com/bkfdev
+[link-author]: https://github.com/aeq-dev
 [link-contributors]: ../../contributors

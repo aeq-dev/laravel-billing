@@ -1,6 +1,6 @@
 {
     "name": "bkfdev/laravel-billing",
-    "description": ":package_description",
+    "description": "Laravel Billing is a flexible plans and subscription management system for Laravel, with the required tools to run your SAAS like services efficiently. It's simple architecture, accompanied by powerful underlying to afford solid platform for your",
     "license": "MIT",
     "authors": [
         {
@@ -9,15 +9,9 @@
             "homepage": "http://bkfdev.com"
         }
     ],
-    "homepage": "https://github.com/bkfdev/laravel-billing",
-    "keywords": ["Laravel", "LaravelBilling"],
-    "require": {
-        "illuminate/support": "~9"
-    },
-    "require-dev": {
-        "phpunit/phpunit": "~9.0",
-        "orchestra/testbench": "~7"
-    },
+    "homepage": "https://github.com/aeq-dev/laravel-billing",
+    "keywords": ["laravel", "laravel billing", "billing", "laravel subscription", "subscription"],
+   
     "autoload": {
         "psr-4": {
             "Bkfdev\\Billing\\": "src/"
