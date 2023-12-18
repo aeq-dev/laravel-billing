@@ -23,8 +23,8 @@ return new class extends Migration {
             $table->string('description')->nullable();
             $table->float('price')->default(0);
             $table->string('value');
-            $table->unsignedSmallInteger('resettable_period')->default(0);
-            $table->string('resettable_interval')->default('month');
+            $table->unsignedSmallInteger('resettable_period')->default(0)->nullable();
+            $table->string('resettable_interval')->default('month')->nullable();
             $table->unsignedMediumInteger('sort_order')->default(0);
             $table->timestamps();
 
