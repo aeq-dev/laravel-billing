@@ -19,48 +19,7 @@ use Illuminate\Database\Eloquent\Model;
 class PlanSubscriptionSchedule extends Model
 {
     public $timestamps = false;
-
-    /**
-     * {@inheritdoc}
-     */
-    protected $fillable = [
-        'subscription_id',
-        'scheduled_at'
-    ];
-
-    /**
-     * {@inheritdoc}
-     */
-    protected $casts = [
-        'scheduleable_type' => 'string',
-        'scheduled_at' => 'datetime',
-        'failed_at' => 'datetime',
-        'succeeded_at' => 'datetime'
-    ];
-
-    /**
-     * Create a new Eloquent model instance.
-     *
-     * @param array $attributes
-     */
-    public function __construct(array $attributes = [])
-    {
-        parent::__construct($attributes);
-
-        $this->setTable(config('billing.tables.plan_subscription_schedules'));
-    }
-
-    /**
-     * Get validation rules
-     * @return string[]
-     */
-    public function getRules(): array
-    {
-        return [
-            'subscription_id' => 'required|integer|exists:' . config('billing.tables.plan_subscriptions') . ',id',
-            'scheduled_at' => 'date'
-        ];
-    }
+    protected $guarded = [];
 
     /**
      * Subscription Schedule belongs to Subscription

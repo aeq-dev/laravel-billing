@@ -21,7 +21,6 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
-use Illuminate\Validation\Rule;
 use LogicException;
 use UnexpectedValueException;
 
@@ -29,106 +28,7 @@ class PlanSubscription extends Model
 {
     use BelongsToPlan, HasSchedules, HasFeatures, HasPricing, HasTrialPeriodUsage, HasSubscriptionPeriodUsage, HasGracePeriod, HasGracePeriodUsage;
 
-    /**
-     * {@inheritdoc}
-     */
-    protected $fillable = [
-        'tag',
-        'subscriber_id',
-        'subscriber_type',
-        'plan_id',
-        'name',
-        'description',
-        'price',
-        'currency',
-        'trial_period',
-        'trial_interval',
-        'grace_period',
-        'grace_interval',
-        'invoice_period',
-        'invoice_interval',
-        'payment_method',
-        'tier',
-        'trial_ends_at',
-        'starts_at',
-        'ends_at',
-        'cancels_at',
-        'canceled_at',
-    ];
-
-    /**
-     * {@inheritdoc}
-     */
-    protected $casts = [
-        'tag' => 'string',
-        'subscriber_type' => 'string',
-        'price' => 'float',
-        'currency' => 'string',
-        'trial_period' => 'integer',
-        'trial_interval' => 'string',
-        'grace_period' => 'integer',
-        'grace_interval' => 'string',
-        'invoice_period' => 'integer',
-        'invoice_interval' => 'string',
-        'payment_method' => 'string',
-        'tier' => 'integer',
-        'trial_ends_at' => 'datetime',
-        'starts_at' => 'datetime',
-        'ends_at' => 'datetime',
-        'cancels_at' => 'datetime',
-        'canceled_at' => 'datetime'
-    ];
-
-    /**
-     * Create a new Eloquent model instance.
-     *
-     * @param array $attributes
-     */
-    public function __construct(array $attributes = [])
-    {
-        parent::__construct($attributes);
-
-        $this->setTable(config('billing.tables.plan_subscriptions'));
-    }
-
-    /**
-     * Get validation rules
-     * @return string[]
-     */
-    public function getRules(): array
-    {
-        return [
-            'tag' => [
-                'required',
-                'alpha_dash',
-                'max:150',
-                Rule::unique(config('billing.tables.plan_subscriptions'))->where(function ($query) {
-                    return $query->where('id', '!=', $this->id)->where('subscriber_type', $this->subscriber_type)
-                        ->where('subscriber_id', $this->subscriber_id);
-                }),
-            ],
-            'subscriber_id' => 'required|integer',
-            'subscriber_type' => 'required|string|max:150',
-            'plan_id' => 'required|exists:' . config('billing.tables.plans') . ',id',
-            'name' => 'required|string|max:150',
-            'description' => 'nullable|string|max:32768',
-            'price' => 'required|numeric',
-            'currency' => 'required|alpha|size:3',
-            'trial_period' => 'sometimes|integer|max:100000',
-            'trial_interval' => 'sometimes|in:hour,day,week,month',
-            'grace_period' => 'sometimes|integer|max:100000',
-            'grace_interval' => 'sometimes|in:hour,day,week,month',
-            'invoice_period' => 'sometimes|integer|max:100000',
-            'invoice_interval' => 'sometimes|in:hour,day,week,month',
-            'payment_method' => 'nullable|string',
-            'tier' => 'nullable|integer|max:100000',
-            'trial_ends_at' => 'nullable|date',
-            'starts_at' => 'required|date',
-            'ends_at' => 'required|date',
-            'cancels_at' => 'nullable|date',
-            'canceled_at' => 'nullable|date',
-        ];
-    }
+    protected $guarded = [];
 
     /**
      * Get the owning subscriber.
@@ -200,7 +100,8 @@ class PlanSubscription extends Model
             // If cancel is immediate, set end date
             if ($immediately) {
                 // Cancel trial
-                if ($this->isOnTrial()) $this->trial_ends_at = $this->canceled_at;
+                if ($this->isOnTrial())
+                    $this->trial_ends_at = $this->canceled_at;
 
                 // Cancel subscription
                 $this->cancels_at = $this->canceled_at;
@@ -409,7 +310,8 @@ class PlanSubscription extends Model
                 $startDate = $this->hasEnded() ? Carbon::now() : $this->ends_at;
                 $period = new Period($this->invoice_interval, $this->invoice_period * $periods, $startDate);
 
-                if ($this->hasEnded()) $this->starts_at = $period->getStartDate();
+                if ($this->hasEnded())
+                    $this->starts_at = $period->getStartDate();
                 $this->ends_at = $period->getEndDate();
             }
 

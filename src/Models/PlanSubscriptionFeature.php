@@ -7,7 +7,6 @@ namespace Bkfdev\Billing\Models;
 use Bkfdev\Billing\Traits\HasResetDate;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Validation\Rule;
 use InvalidArgumentException;
 
 /**
@@ -18,71 +17,7 @@ class PlanSubscriptionFeature extends Model
 {
     use HasResetDate;
 
-    /**
-     * {@inheritdoc}
-     */
-    protected $fillable = [
-        'tag',
-        'plan_subscription_id',
-        'plan_feature_id',
-        'name',
-        'description',
-        'price',
-        'value',
-        'resettable_period',
-        'resettable_interval',
-        'sort_order',
-    ];
-
-    /**
-     * {@inheritdoc}
-     */
-    protected $casts = [
-        'tag' => 'string',
-        'value' => 'string',
-        'resettable_period' => 'integer',
-        'resettable_interval' => 'string',
-        'sort_order' => 'integer',
-    ];
-
-    /**
-     * Create a new Eloquent model instance.
-     *
-     * @param array $attributes
-     */
-    public function __construct(array $attributes = [])
-    {
-        parent::__construct($attributes);
-
-        $this->setTable(config('billing.tables.plan_subscription_features'));
-    }
-
-    /**
-     * Get validation rules
-     * @return string[]
-     */
-    public function getRules(): array
-    {
-        return [
-            'tag' => [
-                'required',
-                'max:150',
-                Rule::unique(config('billing.tables.plan_subscription_features'))->where(function ($query) {
-                    return $query->where('id', '!=', $this->id)->where('plan_subscription_id', $this->plan_subscription_id);
-                }),
-            ],
-            'plan_subscription_id' => 'required|integer|exists:' . config('billing.tables.plan_subscriptions') . ',id',
-            'plan_feature_id' => 'nullable|integer',
-            'name' => 'required|string|max:150',
-            'description' => 'nullable|string|max:32768',
-            'price' => 'required|numeric',
-            'value' => 'required|string',
-            'resettable_period' => 'sometimes|integer',
-            'resettable_interval' => 'sometimes|in:hour,day,week,month',
-            'sort_order' => 'nullable|integer|max:100000',
-        ];
-    }
-
+    protected $guarded = [];
 
     /**
      * The subscription feature belongs to one subscription.

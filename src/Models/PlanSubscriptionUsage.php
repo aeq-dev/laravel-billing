@@ -11,48 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class PlanSubscriptionUsage extends Model
 {
-
-    /**
-     * {@inheritdoc}
-     */
-    protected $fillable = [
-        'plan_subscription_feature_id',
-        'used',
-        'valid_until',
-    ];
-
-    /**
-     * {@inheritdoc}
-     */
-    protected $casts = [
-        'used' => 'integer',
-        'valid_until' => 'datetime',
-    ];
-
-    /**
-     * Create a new Eloquent model instance.
-     *
-     * @param array $attributes
-     */
-    public function __construct(array $attributes = [])
-    {
-        parent::__construct($attributes);
-
-        $this->setTable(config('billing.tables.plan_subscription_usage'));
-    }
-
-    /**
-     * Get validation rules
-     * @return string[]
-     */
-    public function getRules(): array
-    {
-        return [
-            'plan_subscription_feature_id' => 'required|integer|exists:' . config('billing.tables.plan_features') . ',id',
-            'used' => 'required|integer',
-            'valid_until' => 'nullable|date',
-        ];
-    }
+    protected $guarded = [];
 
     /**
      * Subscription usage always belongs to a plan subscription feature.

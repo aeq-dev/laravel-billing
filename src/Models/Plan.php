@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Bkfdev\Billing\Models;
 
-use Bkfdev\Billing\Enums\PlanType;
-use Bkfdev\Billing\Exceptions\DuplicateException;
 use Bkfdev\Billing\Traits\HasFeatures;
 use Bkfdev\Billing\Traits\HasGracePeriod;
 use Bkfdev\Billing\Traits\HasPricing;
@@ -23,95 +21,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Plan extends Model
 {
     use SoftDeletes, HasFeatures, HasPricing, HasTrialPeriod, HasSubscriptionPeriod, HasGracePeriod, MorphsSchedules;
-
-    /**
-     * {@inheritdoc}
-     */
-    protected $fillable = [
-        'tag',
-        'name',
-        'description',
-        'is_active',
-        'price',
-        'signup_fee',
-        'currency',
-        'trial_period',
-        'trial_interval',
-        'trial_mode',
-        'grace_period',
-        'grace_interval',
-        'invoice_period',
-        'invoice_interval',
-        'tier',
-        'type'
-    ];
-
-    /**
-     * {@inheritdoc}
-     */
-    protected $casts = [
-        'tag' => 'string',
-        'is_active' => 'boolean',
-        'price' => 'float',
-        'signup_fee' => 'float',
-        'currency' => 'string',
-        'trial_period' => 'integer',
-        'trial_interval' => 'string',
-        'trial_mode' => 'string',
-        'grace_period' => 'integer',
-        'grace_interval' => 'string',
-        'invoice_period' => 'integer',
-        'invoice_interval' => 'string',
-        'tier' => 'integer',
-        'deleted_at' => 'datetime',
-        'type' => PlanType::class
-    ];
-
-    /**
-     * Create a new Eloquent model instance.
-     *
-     * @param array $attributes
-     */
-    public function __construct(array $attributes = [])
-    {
-        parent::__construct($attributes);
-
-        $this->setTable(config('billing.tables.plans'));
-    }
-
-    /**
-     * Get validation rules
-     * @return string[]
-     */
-    public function getRules(): array
-    {
-        return [
-            'tag' => 'required|max:150|unique:' . config('billing.tables.plans') . ',tag',
-            'name' => 'required|string|max:150',
-            'description' => 'nullable|string|max:32768',
-            'is_active' => 'sometimes|boolean',
-            'price' => 'required|numeric',
-            'signup_fee' => 'required|numeric',
-            'currency' => 'required|alpha|size:3',
-            'trial_period' => 'sometimes|integer|max:100000',
-            'trial_interval' => 'sometimes|in:hour,day,week,month',
-            'trial_mode' => 'required|in:inside,outside',
-            'grace_period' => 'sometimes|integer|max:100000',
-            'grace_interval' => 'sometimes|in:hour,day,week,month',
-            'invoice_period' => 'sometimes|integer|max:100000',
-            'invoice_interval' => 'sometimes|in:hour,day,week,month',
-            'tier' => 'nullable|integer|max:100000'
-        ];
-    }
-
-    public static function create(array $attributes = [])
-    {
-        if (static::where('tag', $attributes['tag'])->first()) {
-            throw new DuplicateException();
-        }
-
-        return static::query()->create($attributes);
-    }
+    protected $guarded = [];
 
     /**
      * Get plan by the given tag.
