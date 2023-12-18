@@ -91,6 +91,6 @@ class Plan extends Model
 
     public function scopeActive(Builder $builder, $bool = true)
     {
-        return $this->$builder->whereIsActive($bool);
+        return $builder->whereIsActive($bool);
     }
 }
