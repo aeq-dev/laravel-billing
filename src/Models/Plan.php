@@ -13,6 +13,7 @@ use Bkfdev\Billing\Traits\MorphsSchedules;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use \Illuminate\Database\Eloquent\Builder;
 
 /**
  * Class Plan
@@ -86,5 +87,10 @@ class Plan extends Model
         $this->update(['is_active' => false]);
 
         return $this;
+    }
+
+    public function scopeActive(Builder $builder, $bool = true)
+    {
+        return $this->$builder->whereIsActive($bool);
     }
 }
