@@ -61,7 +61,12 @@ class PendingPaymentCollector
         $regularDiff = $regular->whereNotIn('subscription_id', $scheduled->pluck('subscription_id'));
 
         // Sort by date and retrieve unique, to avoid messing up multiple pending subscription schedule changes
-        return $scheduled->merge($regularDiff)->sortBy('date', SORT_ASC)->unique('subscription_id')->all();
+
+        // To Check when we have scheduled subscriptions
+        //return $scheduled->merge($regularDiff)->sortBy('date', SORT_ASC)->unique('subscription_id')->all();
+
+        return $regularDiff->merge($scheduled)->sortBy('date', SORT_ASC)->unique('subscription_id')->all();
+
     }
 
     /**
