@@ -12,4 +12,12 @@ class PlanFeature extends Model
 {
     use BelongsToPlan, HasResetDate;
     protected $guarded = [];
+
+    protected $casts = [
+        'tag' => 'string',
+        'value' => 'string',
+        'resettable_period' => 'integer',
+        'resettable_interval' => 'string',
+        'sort_order' => 'integer',
+    ];
 }

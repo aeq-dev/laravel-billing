@@ -29,6 +29,26 @@ class PlanSubscription extends Model
     use BelongsToPlan, HasSchedules, HasFeatures, HasPricing, HasTrialPeriodUsage, HasSubscriptionPeriodUsage, HasGracePeriod, HasGracePeriodUsage;
 
     protected $guarded = [];
+    protected $casts = [
+        'tag' => 'string',
+        'subscriber_type' => 'string',
+        'price' => 'float',
+        'currency' => 'string',
+        'trial_period' => 'integer',
+        'trial_interval' => 'string',
+        'grace_period' => 'integer',
+        'grace_interval' => 'string',
+        'invoice_period' => 'integer',
+        'invoice_interval' => 'string',
+        'payment_method' => 'string',
+        'tier' => 'integer',
+        'trial_ends_at' => 'datetime',
+        'starts_at' => 'datetime',
+        'ends_at' => 'datetime',
+        'cancels_at' => 'datetime',
+        'canceled_at' => 'datetime'
+    ];
+
 
     /**
      * Get the owning subscriber.

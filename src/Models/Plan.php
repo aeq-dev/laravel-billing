@@ -24,6 +24,24 @@ class Plan extends Model
     use SoftDeletes, HasFeatures, HasPricing, HasTrialPeriod, HasSubscriptionPeriod, HasGracePeriod, MorphsSchedules;
     protected $guarded = [];
 
+    protected $casts = [
+        'tag' => 'string',
+        'is_active' => 'boolean',
+        'price' => 'float',
+        'signup_fee' => 'float',
+        'currency' => 'string',
+        'trial_period' => 'integer',
+        'trial_interval' => 'string',
+        'trial_mode' => 'string',
+        'grace_period' => 'integer',
+        'grace_interval' => 'string',
+        'invoice_period' => 'integer',
+        'invoice_interval' => 'string',
+        'tier' => 'integer',
+        'deleted_at' => 'datetime',
+    ];
+
+
     /**
      * Get plan by the given tag.
      *

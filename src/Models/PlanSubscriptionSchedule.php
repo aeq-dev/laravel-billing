@@ -21,6 +21,13 @@ class PlanSubscriptionSchedule extends Model
     public $timestamps = false;
     protected $guarded = [];
 
+    protected $casts = [
+        'scheduleable_type' => 'string',
+        'scheduled_at' => 'datetime',
+        'failed_at' => 'datetime',
+        'succeeded_at' => 'datetime'
+    ];
+
     /**
      * Subscription Schedule belongs to Subscription
      *

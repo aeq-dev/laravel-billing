@@ -17,6 +17,16 @@ class PlanCombination extends Model
     use BelongsToPlan, MorphsSchedules;
     protected $guarded = [];
 
+    protected $casts = [
+        'tag' => 'string',
+        'country' => 'string',
+        'currency' => 'string',
+        'price' => 'float',
+        'signup_fee' => 'float',
+        'invoice_period' => 'integer',
+        'invoice_interval' => 'string'
+    ];
+
     /**
      * Get plan combination by the given tag.
      *

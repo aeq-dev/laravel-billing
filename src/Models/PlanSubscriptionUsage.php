@@ -13,6 +13,11 @@ class PlanSubscriptionUsage extends Model
 {
     protected $guarded = [];
 
+    protected $casts = [
+        'used' => 'integer',
+        'valid_until' => 'datetime',
+    ];
+
     /**
      * Subscription usage always belongs to a plan subscription feature.
      *

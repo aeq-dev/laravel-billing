@@ -19,6 +19,14 @@ class PlanSubscriptionFeature extends Model
 
     protected $guarded = [];
 
+    protected $casts = [
+        'tag' => 'string',
+        'value' => 'string',
+        'resettable_period' => 'integer',
+        'resettable_interval' => 'string',
+        'sort_order' => 'integer',
+    ];
+
     /**
      * The subscription feature belongs to one subscription.
      *
