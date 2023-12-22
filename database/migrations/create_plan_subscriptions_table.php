@@ -30,6 +30,7 @@ return new class extends Migration {
             $table->unsignedSmallInteger('invoice_period')->default(1);
             $table->string('invoice_interval')->default('month');
             $table->string('payment_method')->nullable()->default('free');
+            $table->string('invoice_method')->nullable()->default('generate');
             $table->unsignedMediumInteger('tier')->default(0);
             $table->timestamp('trial_ends_at')->nullable();
             $table->timestamp('starts_at')->nullable();

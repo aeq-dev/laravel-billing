@@ -30,6 +30,9 @@ return [
     'services' => [
         'payment_methods' => [
             'free' => \Bkfdev\Billing\Services\PaymentMethods\Free::class
-        ]
+        ],
+        'invoice_methods' => [
+            'generate' => \Bkfdev\Billing\Services\InvoiceMethods\CollectInvoice::class,
+        ],
     ]
 ];
