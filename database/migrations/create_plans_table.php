@@ -20,6 +20,7 @@ return new class extends Migration {
             $table->string('tag')->unique();
             $table->string('name');
             $table->string('description')->nullable();
+            $table->string('icon')->nullable();
             $table->boolean('is_active')->default(true);
             $table->float('price')->default(0);
             $table->float('signup_fee')->default(0);
